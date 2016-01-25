@@ -72,7 +72,7 @@ constexpr auto derivative(E e) {
 
 template<typename Var, std::size_t level, typename E, enable_if<bool_constant<(level > 1)>> = 0, enable_if<is_variable<Var>> = 0>
 constexpr auto derivative(E e) {
-	return derivative<Var, 1>(derivative<Var, level - 1>(e));
+	return derivative<Var>(derivative<Var, level - 1>(e));
 }
 
 /////////////////////////////////////////////
@@ -119,7 +119,6 @@ struct Constant : AnyConstant {
 
 // Represent a constant value that may be only known at runtime
 struct Value : Expr {
-	using Expr::Expr;
 	constexpr explicit Value(double value) : _value{value} {}
 	
 	template<typename... Args>
@@ -133,7 +132,7 @@ struct Value : Expr {
 	}
 	
 private:
-	double _value = 0;
+	double _value;
 };
 
 // Represent a varible in the expression
@@ -168,7 +167,7 @@ struct Multiplication : BinaryExpr<E1, E2> {
 	}
 };
 
-// Represent a addition expression
+// Represent an addition expression
 template<typename E1, typename E2>
 struct Addition : BinaryExpr<E1, E2> {
 	using BinaryExpr<E1, E2>::BinaryExpr;
