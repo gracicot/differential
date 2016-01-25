@@ -94,6 +94,8 @@ protected:
 /////////////////////////////////////////////
 //          Expression definitions         //
 /////////////////////////////////////////////
+
+// Represent a constant integer known at compilation
 template<int value>
 struct Constant : AnyConstant {
 	using AnyConstant::AnyConstant;
@@ -109,6 +111,7 @@ struct Constant : AnyConstant {
 	}
 };
 
+// Represent a constant value that may be only known at runtime
 struct Value : Expr {
 	using Expr::Expr;
 	constexpr explicit Value(double value) : _value{value} {}
@@ -127,6 +130,7 @@ private:
 	double _value = 0;
 };
 
+// Represent a varible in the expression
 template<int n>
 struct Variable : AnyVariable {
 	using AnyVariable::AnyVariable;
@@ -142,6 +146,7 @@ struct Variable : AnyVariable {
 	}
 };
 
+// Represent a multiplication expression
 template<typename E1, typename E2>
 struct Multiplication : BinaryExpr<E1, E2> {
 	using BinaryExpr<E1, E2>::BinaryExpr;
@@ -157,6 +162,7 @@ struct Multiplication : BinaryExpr<E1, E2> {
 	}
 };
 
+// Represent a addition expression
 template<typename E1, typename E2>
 struct Addition : BinaryExpr<E1, E2> {
 	using BinaryExpr<E1, E2>::BinaryExpr;
@@ -172,6 +178,7 @@ struct Addition : BinaryExpr<E1, E2> {
 	}
 };
 
+// Represent a substraction expression
 template<typename E1, typename E2>
 struct Substraction : BinaryExpr<E1, E2> {
 	using BinaryExpr<E1, E2>::BinaryExpr;
@@ -187,6 +194,7 @@ struct Substraction : BinaryExpr<E1, E2> {
 	}
 };
 
+// Represent a division expression
 template<typename E1, typename E2>
 struct Division : BinaryExpr<E1, E2> {
 	using BinaryExpr<E1, E2>::BinaryExpr;
@@ -219,6 +227,7 @@ namespace diff {
 template<typename>
 struct Cosine;
 
+// Represent a sine expression
 template<typename E>
 struct Sine : UnaryExpr<E> {
 	using UnaryExpr<E>::UnaryExpr;
@@ -234,6 +243,7 @@ struct Sine : UnaryExpr<E> {
 	}
 };
 
+// Represent a cosine expression
 template<typename E>
 struct Cosine : UnaryExpr<E> {
 	using UnaryExpr<E>::UnaryExpr;
