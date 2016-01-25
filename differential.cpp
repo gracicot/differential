@@ -96,9 +96,11 @@ protected:
 /////////////////////////////////////////////
 
 // Represent a constant integer known at compilation
-template<int value>
+template<int val>
 struct Constant : AnyConstant {
 	using AnyConstant::AnyConstant;
+	
+	constexpr static int value = val;
 	
 	template<typename... Args>
 	constexpr double operator()(Args...) const {
