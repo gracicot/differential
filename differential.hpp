@@ -26,16 +26,16 @@ template<bool b>
 using bool_constant = std::integral_constant<bool, b>;
 
 template<typename Var>
-struct is_variable : std::is_base_of<AnyVariable, Var> {};
+using is_variable = std::is_base_of<AnyVariable, Var>;
 
 template<typename E>
-struct is_expr : std::is_base_of<Expr, E> {};
+using is_expr = std::is_base_of<Expr, E>;
 
 template<typename E>
-struct is_constant : std::is_base_of<AnyConstant, E> {};
+using is_constant = std::is_base_of<AnyConstant, E>;
 
 template<typename E>
-struct is_expr_not_constant : bool_constant<is_expr<E>::value && !is_constant<E>::value> {};
+using is_expr_not_constant = bool_constant<is_expr<E>::value && !is_constant<E>::value>;
 
 /////////////////////////////////////////////
 //            Expression utility           //
