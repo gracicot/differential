@@ -56,7 +56,7 @@ constexpr inline auto cube(T num) {
 	return power<3>(num);
 }
 
-template<typename E, typename... Args>
+template<typename E, typename... Args, enable_if<is_expr<E>> = 0>
 constexpr double eval(E e, Args... args) {
 	return e(args...);
 }
